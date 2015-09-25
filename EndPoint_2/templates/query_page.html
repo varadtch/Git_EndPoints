@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List Users</title>
+    <link rel="stylesheet" href="/static/css/foundation.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/vendor/modernizr.js"></script>
+    <title>Search Users</title>
+</head>
+<body>
+    <div class="row">
+        <div class="columns panel">
+            <h3>User fetch combinations <small class="subheader">Get the user through urls.</small></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="medium-6 column">
+            <p><a href="http://localhost:8000/users/allusers">List all available users</a></p>
+        </div>
+        <div class="medium-6 column">
+            <p><a href="http://localhost:8000/admin">Add a new user here...</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="medium-4 columns panel">
+            <h5>Fetch by Profession &amp; group by city</h5><hr>
+            <ul class="square">
+            {% for professionals in Available_Combinations_professions %}
+                <li><a href="http://localhost:8000/users/profession/{{professionals|safe|escape}}/city">{{professionals}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="medium-4 columns panel callout">
+            <h5>Fetch by city &amp; group by Profession</h5><hr>
+            <ul class="square">
+            {% for city in Available_Combinations_city %}
+                <li><a href="http://localhost:8000/users/city/{{city|safe|escape}}/profession">{{city}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="medium-4 columns panel">
+            <h5>Fetch by state &amp; group by Profession</h5><hr>
+            <ul class="square">
+            {% for state in Available_Combinations_state %}
+                <li><a href="http://localhost:8000/users/state/{{state|safe|escape}}/profession">{{state}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="medium-4 columns panel">
+            <h5>Fetch by Profession &amp; group by State</h5><hr>
+            <ul class="square">
+            {% for professionals in Available_Combinations_professions %}
+                <li><a href="http://localhost:8000/users/profession/{{professionals|safe|escape}}/state">{{professionals}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="medium-4 columns panel callout">
+            <h5>Fetch by City &amp; group by State</h5><hr>
+            <ul class="square">
+            {% for city in Available_Combinations_city %}
+                <li><a href="http://localhost:8000/users/city/{{city|safe|escape}}/state">{{city}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="medium-4 columns panel">
+            <h5>Fetch by State &amp; group by City</h5><hr>
+            <ul class="square">
+            {% for state in Available_Combinations_state %}
+                <li><a href="http://localhost:8000/users/state/{{state|safe|escape}}/city">{{state}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="columns">
+            {% if Message %}
+                <h3 class="alert">{{error_message}}</h3>
+            {% else %}
+            <table class="bordered">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Profession</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for users in Users %}
+                    <tr>
+                        <td>{{users.id}}</td>
+                        <td>{{users.username}}</td>
+                        <td>{{users.email}}</td>
+                        <td>{{users.profession}}</td>
+                        <td>{{users.city}}</td>
+                        <td>{{users.state}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="/static/js/vendor/jquery.js"></script>
+    <script src="/static/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>
